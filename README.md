@@ -127,3 +127,10 @@ no GPU or weights.
 
 FSS-SAM3 and SAM3 are fetched at build time and are subject to their own licences (the SAM License).
 Their source code and weights are not redistributed here.
+
+## Acknowledgements
+
+- [TRIFFID-HUA-Perception](https://github.com/AnnaMi0/TRIFFID-HUA-Perception), the baseline this
+  module was built from.
+- [FSS-SAM3](https://github.com/WongKinYiu/FSS-SAM3) and SAM3, the few-shot segmentation model used here.
+- [LightGlue](https://github.com/cvg/LightGlue), for feature matching.
