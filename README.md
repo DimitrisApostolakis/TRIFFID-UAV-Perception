@@ -33,7 +33,9 @@ Everything in these folders is git-ignored.
 
 ## Run with Docker (GPU)
 
-Requires Docker with the NVIDIA Container Toolkit.
+Requires Docker with the NVIDIA Container Toolkit and an NVIDIA driver ≥ 570. The image uses
+PyTorch built for CUDA 12.8, which supports RTX 20xx–50xx (including Blackwell / RTX 5090). For an
+older GPU, build on another base: `docker compose build --build-arg BASE_IMAGE=pytorch/pytorch:2.7.0-cuda12.6-cudnn9-runtime`.
 
 ```bash
 docker compose build

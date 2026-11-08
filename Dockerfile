@@ -1,6 +1,8 @@
 # TRIFFID UAV perception - FSS-SAM3 points + polygons.
 # Weights (sam3.pt, BPE vocab) and the support bank are mounted at run time, never baked in.
-FROM pytorch/pytorch:2.7.0-cuda12.6-cudnn9-runtime
+# CUDA 12.8 PyTorch covers Turing through Blackwell (RTX 20xx-50xx, sm_75-sm_120); needs NVIDIA driver >= 570.
+ARG BASE_IMAGE=pytorch/pytorch:2.7.0-cuda12.8-cudnn9-runtime
+FROM ${BASE_IMAGE}
 
 ARG FSS_SAM3_REPO=https://github.com/WongKinYiu/FSS-SAM3.git
 ARG FSS_SAM3_REF=b82ba838678ae8c2f27f618d9500a50c171e223e
