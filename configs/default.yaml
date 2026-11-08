@@ -1,0 +1,47 @@
+# TRIFFID UAV perception - default run configuration.
+# Relative paths resolve against the working directory (or --root).
+# Override any value on the command line:  --set model.shots=1  --set points.classes='[window]'
+
+paths:
+  inputs: inputs                 # flight video + flight SRT (one of each)
+  topview: input_topview         # topview SRT naming the nadir frame (+ optional nadir image)
+  outputs: outputs
+  supports: supports             # support bank folder containing bank.json
+  flight_video: null             # set to pick a file when the folder holds several
+  flight_srt: null
+  topview_srt: null
+  topview_image: null
+
+model:
+  backend: fss-sam3
+  shots: 5                       # supports per class: 1 or 5
+  prompt: visual                 # visual | text+visual (adds the class name as a text prompt)
+  threshold: 0.5                 # object acceptance threshold
+  device: cuda
+  canvas_size: 1008
+  support_ratio_1shot: 0.6       # 1-shot: share of the canvas height used by the support
+  support_ratio_5shot: 0.3       # 5-shot: thickness of the support L-band
+  repo: /opt/fss-sam3            # FSS-SAM3 source checkout (provided by the Docker image)
+  checkpoint: /models/sam3.pt
+  bpe: /models/bpe_simple_vocab_16e6.txt.gz
+
+selection:                       # orbit frames for point detection
+  mode: orbit                    # orbit: drone bearing about the circle centre | heading: gimbal yaw
+  views: 8
+  start_s: 0.0
+  end_s: null                    # exclusive end of one circle (seconds)
+  angle_offset_deg: 0.0
+  angle_tolerance_deg: 12.0
+  orbit_centre: null             # [lat, lon]; default: centre of the GPS bounding box
+  pitches: null                  # e.g. [-90, -45] to select views at several gimbal pitches
+  pitch_tolerance_deg: 10.0
+
+points:                          # run on the orbit frames
+  enabled: true
+  classes: auto                  # auto = every Point class with `shots` valid supports; or a list
+  min_area_px: 16
+
+polygons:                        # run on the nadir (topview) frame
+  enabled: true
+  classes: auto
+  min_area_px: 16

@@ -1,0 +1,22 @@
+# docker compose run --rm uav                    -> full run with configs/default.yaml
+# docker compose run --rm uav run --shots 1      -> any CLI arguments
+# docker compose run --rm uav check              -> validate inputs without loading the model
+services:
+  uav:
+    build: .
+    image: triffid-uav-perception:latest
+    working_dir: /app
+    volumes:
+      - ./inputs:/app/inputs:ro
+      - ./input_topview:/app/input_topview:ro
+      - ./outputs:/app/outputs
+      - ./configs:/app/configs:ro
+      - ${SUPPORTS_DIR:-./supports}:/app/supports:ro
+      - ${MODELS_DIR:-./models}:/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

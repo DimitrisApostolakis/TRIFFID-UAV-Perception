@@ -1,0 +1,10 @@
+.git
+inputs
+input_topview
+outputs
+supports
+models
+tests
+**/__pycache__
+*.egg-info
+.pytest_cache

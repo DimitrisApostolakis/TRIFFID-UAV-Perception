@@ -1,0 +1,21 @@
+# Flight data, results, support images and weights are never committed.
+/inputs/*
+!/inputs/README.md
+/input_topview/*
+!/input_topview/README.md
+/outputs/*
+!/outputs/README.md
+/supports/*
+!/supports/README.md
+/models/
+*.pt
+*.pth
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+.env
