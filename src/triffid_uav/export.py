@@ -31,6 +31,8 @@ def write_json(path, payload):
             temporary = handle.name
             json.dump(payload, handle, indent=2, allow_nan=False)
             handle.write('\n')
+        # NamedTemporaryFile creates 0600 files; outputs must be readable by the host user.
+        os.chmod(temporary, 0o644)
         os.replace(temporary, path)
     finally:
         if temporary is not None and os.path.exists(temporary):

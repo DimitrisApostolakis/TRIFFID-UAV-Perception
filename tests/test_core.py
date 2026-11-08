@@ -82,3 +82,10 @@ def test_fss_sam3_backend_validates_assets_and_options(tmp_path):
         FssSam3Backend(tmp_path, tmp_path / 'w.pt', tmp_path / 'bpe.gz')
     with pytest.raises(ValueError, match='prompt'):
         FssSam3Backend(tmp_path, tmp_path / 'w.pt', tmp_path / 'bpe.gz', prompt='text')
+
+
+def test_written_json_is_world_readable(tmp_path):
+    import stat
+    from triffid_uav.export import write_json
+    path = write_json(tmp_path / 'out.json', {'a': 1})
+    assert stat.S_IMODE(path.stat().st_mode) == 0o644

@@ -6,6 +6,9 @@ services:
     build: .
     image: triffid-uav-perception:latest
     working_dir: /app
+    user: "${UID:-1000}:${GID:-1000}"   # outputs are owned by the host user
+    environment:
+      HOME: /tmp                         # writable home for library caches when not root
     volumes:
       - ./inputs:/app/inputs:ro
       - ./input_topview:/app/input_topview:ro
